@@ -1,3 +1,5 @@
+from cgitb import text
+from html import entities
 import json
 import pandas as pd
 from textblob import TextBlob
@@ -33,37 +35,44 @@ class TweetDfExtractor:
     def __init__(self, tweets_list):
         
         self.tweets_list = tweets_list
-
+        self.df=pd.json_normalize(tweets_list)
+        self.df.loc
     # an example function
     def find_statuses_count(self)->list:
-        statuses_count 
+    
+        statuses_count=self.df['user.statuses_count'].to_list()
+        return statuses_count
         
     def find_full_text(self)->list:
-        text = 
+        return self.df['extend_tweet.full_text']\
+            .fillna(self.df['retweeted_status.extend_tweet.full_text']).fillna(self.df['quoted_status.extended_tweet.full_text']).fillna(self.df['retweeted_status.quoted_status.extended_tweet.full_text'])\
+            .fillna(self.df['retweeted_status.text']).fillna(self.df['text']).to_list()
+        #text = 
        
     
-    def find_sentiments(self, text)->list:
-        
-        return polarity, self.subjectivity
+    def find_sentiments(self, text_list)->list:
+        subjectivity=[TextBlob(text).sentiment.subjectivity for text in text_list]
+        polarity=[TextBlob(text).sentiment.polarity for text in text_list]
+        return polarity, subjectivity
 
     def find_created_time(self)->list:
-       
-        return created_at
+       created_at=self.df['created_at'].to_list()
+       return created_at
 
     def find_source(self)->list:
-        source = 
+        source = self.df['source'].to_list()
 
         return source
 
     def find_screen_name(self)->list:
-        screen_name = 
-
+        screen_name = self.df['screen_name'].to_list()
+        return screen_name
     def find_followers_count(self)->list:
-        followers_count = 
-
+        followers_count = self.df['followers_count'].to_list()
+        return followers_count
     def find_friends_count(self)->list:
-        friends_count = 
-
+        friends_count = self.df['friends_count'].to_list()
+        return friends_count
     def is_sensitive(self)->list:
         try:
             is_sensitive = [x['possibly_sensitive'] for x in self.tweets_list]
@@ -73,26 +82,29 @@ class TweetDfExtractor:
         return is_sensitive
 
     def find_favourite_count(self)->list:
-        
+        return self.df['retweeted_status.favorite_count'].to_list()
     
     def find_retweet_count(self)->list:
-        retweet_count = 
+        retweet_count = self.df['retweeted_status.retweet_count'].to_list()
+        return retweet_count
 
     def find_hashtags(self)->list:
-        hashtags =
-
+        hashtags =self.df['entities.hashtags'].to_list
+        return hashtags
     def find_mentions(self)->list:
-        mentions = 
+        mentions = self.df['entities.user_mentions'].to_list()
+        return mentions
 
 
     def find_location(self)->list:
         try:
-            location = self.tweets_list['user']['location']
+            location = self.df['user.location'].to_list()
         except TypeError:
             location = ''
         
         return location
-
+    def find_lang(self)->list:
+        return self.df['lang'].to_list()
     
         
         
