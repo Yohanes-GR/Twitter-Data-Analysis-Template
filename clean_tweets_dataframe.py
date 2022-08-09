@@ -6,7 +6,6 @@ from tkinter import Frame
 import pandas as pd
 import numpy as np
 
-
 class Clean_Tweets:
     """
     The PEP8 Standard AMAZING!!!
