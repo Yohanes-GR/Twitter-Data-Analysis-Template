@@ -2,7 +2,7 @@ from cgitb import text
 from html import entities
 import json
 import pandas as pd
-from textblob import TextBlob
+from TextBlob import TextBlob
 
 
 def read_json(json_file: str)->list:
