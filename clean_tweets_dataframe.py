@@ -63,7 +63,7 @@ class Clean_Tweets:
         return self.df
     if name == "main":
        cleaned_df = pd.read_csv("data/processed_tweet_data.csv")
-       clean_tweets = Clean_Tweets(cleaned_df)
+       clean_tweets=clean_Tweets(cleaned_df)
        cleaned_df = clean_tweets.drop_duplicate(cleaned_df)
        cleaned_df = clean_tweets.remove_non_english_tweets(cleaned_df)
        cleaned_df = clean_tweets.convert_to_datetime(cleaned_df)
