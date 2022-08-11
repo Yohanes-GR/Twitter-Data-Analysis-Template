@@ -22,7 +22,7 @@ class Clean_Tweets:
         df = df[df['polarity'] != 'polarity']
         
         return df
-    
+    # to drop dublicated code 
     def drop_duplicate(self, df:pd.DataFrame)->pd.DataFrame:
         """
         drop duplicate rows
