@@ -8,7 +8,7 @@ from Tweet_data_to_database import db_execute_fetch
 
 st.set_page_config(page_title="challenge for day-5", layout="wide")
 
-def loadData():
+def loadData():#loading data from database
     query = "select * from Tweets_data"
     df = db_execute_fetch(query, dbName="tweets", rdf=True)
     return df
